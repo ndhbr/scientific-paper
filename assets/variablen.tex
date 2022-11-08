@@ -1,0 +1,65 @@
+% Variablen
+\newcommand{\titleDocument}{Wissenschaftliche Abhandlung}
+\newcommand{\subjectDocument}{Realisierbarkeit eines Upload-Filters in Bezug auf das Urheberrechts-Diensteanbieter-Gesetz am Beispiel von Grafiken}
+\newcommand*{\bildquelle}{
+  \footnotesize Quelle:
+}
+\newcommand{\code}[1]{\noindent\ignorespaces\texttt{#1}}
+
+% Code
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{black}{rgb}{0,0,0}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{literate=%
+    {Ö}{{\"O}}1
+    {Ä}{{\"A}}1
+    {Ü}{{\"U}}1
+    {ß}{{\ss}}1
+    {ü}{{\"u}}1
+    {ä}{{\"a}}1
+    {ö}{{\"o}}1
+    {~}{{\textasciitilde}}1
+}
+
+\lstdefinestyle{Bash} {
+  frame=single,
+  language=Bash,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{black},
+  keywordstyle=\color{black},
+  commentstyle=\color{black},
+  stringstyle=\color{black},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\lstset{emph={\$},emphstyle=\textbf}
+
+\lstdefinestyle{Python} {
+  frame=single,
+  language=Bash,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{mauve},
+  keywordstyle=\color{mauve},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{dkgreen},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=2
+}

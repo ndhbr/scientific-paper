@@ -1,0 +1,1 @@
+{"rule":"KOMMA_VOR_ERLAEUTERUNG","sentence":"^\\QDer valide Bereich dieser Spalte befindet sich zwischen einschließlich 0,00 und 1,00.\\E$"}

@@ -1,0 +1,148 @@
+% Festlegung des allgemeinen Dokumentenformats
+\documentclass[a4paper,12pt]{article}
+
+% Schrift
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+
+% Bilder
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{{./assets/img}}
+
+% Variablen
+\input{assets/variablen}
+
+% mehrseitige Tabellen ermöglichen
+\usepackage{longtable}
+\usepackage{diagbox}
+
+% Packet für Seitenrandabstände und Einstellung für Seitenränder
+\usepackage{geometry}
+% Internet
+%\geometry{left=3.5cm, right=2.5cm, top=2.5cm, bottom=2cm}
+% Kern
+\geometry{a4paper, top=27mm, left=20mm, right=20mm, bottom=35mm, headsep=10mm,
+footskip=12mm}
+
+% bricht lange URLs "schön" um
+\usepackage[hyphens,obeyspaces,spaces]{url}
+
+% Festlegung Art der Zitierung
+\usepackage{csquotes}
+\usepackage[style=apa, backend=biber]{biblatex}
+\addbibresource{assets/literatur.bib}
+
+% Abstand zwischen Absätze
+\setlength{\parindent}{2em}
+\setlength{\parskip}{1em}
+
+% Paket für Zeilenabstand
+\usepackage{setspace}
+\onehalfspacing
+% Kern:
+% \setstretch{1.15}
+
+% für Bildbezeichner
+\usepackage{capt-of}
+
+% für Stichwortverzeichnis
+\usepackage{makeidx}
+
+% für Abkürzungsverzeichnis
+\usepackage{acronym}
+
+% Für Phantomsection
+\usepackage{hyperref}
+
+% Für Tabellen
+\usepackage{tabularx}
+
+% Konfiguriere das Inhaltsverzeichnis
+\usepackage{tocbasic}
+
+% Anhang: PDF einfügen
+\usepackage{pdfpages}
+
+% subsubsubsection durch paragraph
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+% Kern:
+\titlespacing{\section}{0pt}{12pt plus 4pt minus 2pt}{8pt plus 2pt minus 2pt}
+\titlespacing{\subsection}{0pt}{12pt plus 4pt minus 2pt}{6pt plus 2pt minus 2pt}
+\titlespacing{\subsubsection}{0pt}{12pt plus 4pt minus 2pt}{4pt plus 2pt minus 2pt}
+
+% \autoref: Subsubsection umbenennen
+\addto\extrasngerman{
+    \def\subsubsectionautorefname{Unterabschnitt}
+}
+
+% Titel
+\title{Bachelorarbeit}
+
+% Autor
+\author{Andreas Huber}
+
+% Datum
+\date{\today}
+
+%
+% Start
+% des
+% Dokuments
+%
+\begin{document}
+
+% Titelseite
+\input{pages/deckblatt}
+\newpage
+
+% Römische Nummerierung
+\pagenumbering{Roman}
+
+% Inhaltsverzeichnis
+\tableofcontents
+
+% Abbildungsverzeichnis
+\newpage
+\input{pages/x_abbildungsverzeichnis}
+
+% Tabellenverzeichnis
+\newpage
+\input{pages/x_tabellenverzeichnis}
+
+% Abkürzungsverzeichnis
+\newpage
+\input{pages/x_abkuerzungsverzeichnis}
+
+% Arabische Seitennummerierung ab hier
+\newpage
+\pagenumbering{arabic}
+
+% Einleitung
+\input{pages/einleitung}
+
+% Fazit
+\newpage
+\input{pages/fazit}
+
+% Römische Nummerierung
+\newpage
+%\pagenumbering{Roman}
+%\setcounter{page}{5}
+
+% Literaturliste soll im Inhaltsverzeichnis auftauchen
+\newpage
+\input{pages/x_literaturverzeichnis}
+
+% Anhang
+\newpage
+\input{pages/x_anhang}
+
+\end{document}
