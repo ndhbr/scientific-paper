@@ -128,6 +128,135 @@ footskip=12mm}
 % Einleitung
 \input{pages/einleitung}
 
+\section{Algorithmen zur Ähnlichkeitsbestimmung zweier Bilder}
+\subsection{Kategorisch durch Schlüsselwörter}
+\subsection{Inhaltsbasierte Algorithmen}
+In den folgenden Unterkapiteln stellt Bild A jeweils das Suchbild und Bild B
+das Referenzbild dar.
+\newpage
+\subsubsection{Perceptual Hashing}
+Eine der einfachsten, aber auch anfälligsten Methoden zur Bestimmung der
+Ähnlichkeit von zwei Bildern ist das Hashing. Dabei gibt es viele verschiedene
+Ansätze und Vorgehensmodelle. Die gängigste Methode ist die Anwendung des
+pHashes, auch genannt Perceptual Hashing.
+
+Beim Perceptual Hashing werden sowohl für Bild A als auch für Bild B ein Hash
+berechnet. Die daraus resultierende Hamming-Distanz zwischen den Hashes ergibt
+die Ähnlichkeit der Bilder. Je geringer die Distanz, desto ähnlicher. Das
+Verfahren ist nicht normiert und Stand \today{} noch ein offenes
+Forschungsthema.
+
+Im Folgenden wird ein beispielhaftes pHash-Verfahren erläutert. Zuerst wird
+sowohl das Referenz- als auch das Suchbild in eine Graustufen-Grafik
+umgewandelt. Schließlich wird die Grafik auf 32x32 Pixel skaliert. Auf das
+entstandene Grauwertbild folgen zwei Diskrete Kosinus Transformationen (1. Pro
+Zeile, 2. Pro Spalte). Die hochfrequenten Abschnitte befinden sich nun links
+oben in einer 8x8 Matrix. Daraufhin wird der Median-Grauwert der 64 Pixel
+berechnet. Jeder Pixel, dessen Grauwert unter dem Durchschnitt liegt wird weiß
+eingefärbt, der Rest schwarz. Daraus ergibt sich ein 64-Bit langer Hashwert
+(schwarz: 0, weiß: 1). Zuletzt wird durch eine Subtraktion der beiden
+generierten Bitfolgen die Hamming-Distanz berechnet. Mittels einem vorher
+festgelegten Schwellenwert wird jetzt auf Basis des Hamming-Abstands bestimmt,
+ob die Bilder als ähnlich eingestuft werden.
+
+\begin{itemize}
+    \item [\textbf{Vorteile}]
+    \item Schnelle Performance, wenn die Hashes der Referenzbilder bereits in
+    der Datenbank liegen
+    \item Einfach zu implementieren
+    \item Keine Trainingsdaten nötig
+    \item Robust gegen Wasserzeichen, Farbfilter, leichte Helligkeits- und
+    Kontraständerungen, Gammakorrekturen, Skalierungen sowie Komprimierungen
+\end{itemize}
+
+\begin{itemize}
+    \item [\textbf{Nachteile}]
+    \item Nicht robust gegen Spiegelungen, Rotierungen und Verzerrungen
+    \item Nicht robust gegen Zuschneidungen, neu eingefügten Elementen oder
+    Änderungen des Blickwinkels
+\end{itemize}
+
+\newpage
+
+\subsubsection{Histogram Intersection}
+Ein robusteres, aber auch rechenaufwendigeres Verfahren ist der Histogram
+Intersection Algorithmus von Swain und Ballard. Histogramme sind stabil
+gegenüber Translation und Rotation um die Betrachtungsachse. Außerdem ändern
+sie sich bei Änderungen des Blickwinkels, des Maßstabs und bei Verdeckung von
+Elementen nur langsam. Gegen Belichtungsänderungen können stark reduzierte
+Farbhistogramme jedoch Probleme bereiten. 
+% Quelle: Swain and Ballard P.3
+
+Im Standardfall wird die Histogram Intersection auf Farbhistogramme angewandt. 
+Zuerst muss die Menge an zu diskretisierenden Farben im Histogramm festgelegt
+werden - zum Beispiel 100. Folglich gibt es 100 mögliche \glqq{}Farbeimer\grqq{}
+in die wir jeden Pixel der Bilder einsortieren. Mit den durch das Referenz- und
+das Suchbild berechneten Histogrammen, kann schließlich die Überschneidung
+festgestellt werden. Je stärker sich die Histogramme überschneiden, desto
+ähnlicher sind die Bilder. Zusätzlich wird wie beim Hashing ein gewisser
+Schwellenwert vorher definiert. Der Vorgang kann beispielsweise auch auf die
+einzelnen Farbkanäle aufgeteilt werden. Bei RGB würde das bedeuten, dass man
+jeweils den Rot-, Grün-, und Blau-Kanal einzeln betrachtet. 
+
+Weitere Untersuchungen haben ergeben, dass sowohl die Wahl des Farbraums als
+auch die Festlegung des Quantization Levels (Anzahl der Farbeimer) eine große
+Rolle bei der Erfolgsschance dieses Vorgehensmodells spielen. Hierbei sorgte
+wohl der CIELab-Farbraum im Allgemeinen für die besten Ergebnisse.
+
+Eine zusätzliche Möglichkeit die Genauigkeit des Algorithmus zu verbessern ist
+das Hinzufügen eines sogenannten \glqq{}Texture Direction\grqq{}-Histogramms. In
+diesem Fall wird durch eine Eckenerkennung die Struktur und Richtungen des
+Bildes bestimmt. Diese werden wie bei den Farbhistogrammen auch in einem
+Histogramm mit vorher definierten Bins einsortiert. Abschließend kann, wie oben,
+beschrieben die Überschneidung und somit die Ähnlichkeit der Struktur zweier
+Bilder mithilfe des \glqq{}Histogram Intersection\grqq{}-Algorithmus von Swain
+und Ballard berechnet werden. Offensichtlich wird jedoch jeder weitere 
+zusätzlicher Berechnungsschritt die allgemeine Performance des Systems
+beeinträchtigen.
+
+\newpage
+
+\subsubsection{Scale-Invariant Feature Transform (SIFT)}
+David G. Lowe hat mit der Einführung des SIFT-Algorithmus einen für die
+Bildverarbeitung wertvollen Beitrag geleistet. Der SIFT-Algoritmus findet lokale
+Merkmale in Bildern. Diese Merkmale sind invariant gegenüber Bildskalierung und
+-drehung und teilweise invariant gegenüber Änderungen der Beleuchtung sowie des
+Betrachtungswinkels. Die Wahrscheinlichkeit einer Störung durch Verdeckung
+einzelner Elemente oder auftretenden Bildrauschens wird, durch räumliche
+Streuung und einem vielseitigen Frequenzbereich, erreicht. Im Folgenden wird die
+grobe Vorgehensweise zur Findung der lokalen Merkmale erläutert.
+
+\begin{enumerate}
+    \item \textbf{Scale-space extrema detection}\newline
+    Zu Beginn wird aus einem Bild durch repetetives Unschärfen (mittels
+    Gaußschen Unschärfefilter) und Halbieren der Größe eine Serie an Bildern
+    erzeugt. Auf die Bilder der Bilderserie folgt die Anwendung der Gaußschen
+    Differenzfunktion.
+    \item \textbf{Keypoint localization}\newline
+    Aus den vorher differenzierten Grafiken werden jetzt mit dem
+    Marr-Hildreth-Operator interessante Schlüsselpunkte bzw. Merkmale 
+    herausgefiltert. Eine dem Harris-Corner Detector ähnliche Prozedur wird
+    angewandt, um Punkte auf Linien zwischen Ecken und Punkte mit wenig
+    Kontrast (uninteressante Punkte) herauszusieben.
+    \item \textbf{Orientation assignment}\newline
+    Mithilfe eines Histogramms kann den Schlüsselpunkten nun eine Orientierung
+    zugewiesen werden. Dadurch werden die Punkte neben der Robustheit gegenüber
+    Skalierung und Translation auch gegen Rotation invariant.
+    \item \textbf{Keypoint descriptor}\newline
+    Zuletzt wird nach Anwendung einiger mathematischer Verfahren eine Art
+    eindeutiger Fingerabdruck des Merkmals berechnet. Schließlich wird dadurch
+    die Stabilität gegenüber begrenzter lokaler Formverzerrungen und
+    Beleuchtungsänderungen erreicht.
+\end{enumerate}
+
+Nach Anwendung dieses Algorithmus muss man bei einem 500x500 Pixel großen Bild
+mit in etwa 2000 robusten Merkmalen rechnen. Werden die gefundenen Merkmale in
+einer Datenbank gespeichert, können sie schließlich in nahezu Echtzeit auf die
+Schlüsselpunkte eines Suchbilds verglichen werden.
+
+\subsubsection{Wavelet Transformation}
+\subsubsection{DeepRanking}
+
 % Fazit
 \newpage
 \input{pages/fazit}
