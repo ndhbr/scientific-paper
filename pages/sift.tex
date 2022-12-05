@@ -1,0 +1,41 @@
+\subsection{Scale-Invariant Feature Transform (SIFT)}
+David G. Lowe hat mit der Einführung des SIFT-Algorithmus einen für die
+Bildverarbeitung wertvollen Beitrag geleistet. Der SIFT-Algoritmus findet lokale
+Merkmale in Bildern. Diese Merkmale sind invariant gegenüber Bildskalierung und
+-drehung und teilweise invariant gegenüber Änderungen der Beleuchtung sowie des
+Betrachtungswinkels. Die Wahrscheinlichkeit einer Störung durch Verdeckung
+einzelner Elemente oder auftretenden Bildrauschens wird, durch räumliche
+Streuung und einem vielseitigen Frequenzbereich, erreicht. Im Folgenden wird die
+grobe Vorgehensweise zur Findung der lokalen Merkmale erläutert. 
+
+\begin{enumerate}
+    \item \textbf{Scale-space extrema detection}\newline
+    Zu Beginn wird aus einem Bild durch repetetives Unschärfen (mittels
+    Gaußschen Unschärfefilter) und Halbieren der Größe eine Serie an Bildern
+    erzeugt. Auf die Bilder der Bilderserie folgt die Anwendung der Gaußschen
+    Differenzfunktion.
+    \item \textbf{Keypoint localization}\newline
+    Aus den vorher differenzierten Grafiken werden jetzt mit dem
+    Marr-Hildreth-Operator interessante Schlüsselpunkte bzw. Merkmale 
+    herausgefiltert. Eine dem Harris-Corner Detector ähnliche Prozedur wird
+    angewandt, um Punkte auf Linien zwischen Ecken und Punkte mit wenig
+    Kontrast (uninteressante Punkte) herauszusieben.
+    \item \textbf{Orientation assignment}\newline
+    Mithilfe eines Histogramms kann den Schlüsselpunkten nun eine Orientierung
+    zugewiesen werden. Dadurch werden die Punkte neben der Robustheit gegenüber
+    Skalierung und Translation auch gegen Rotation invariant.
+    \item \textbf{Keypoint descriptor}\newline
+    Zuletzt wird nach Anwendung einiger mathematischer Verfahren eine Art
+    eindeutiger Fingerabdruck des Merkmals berechnet. Schließlich wird dadurch
+    die Stabilität gegenüber begrenzter lokaler Formverzerrungen und
+    Beleuchtungsänderungen erreicht.
+\end{enumerate}
+
+Nach Anwendung dieses Algorithmus muss man bei einem 500x500 Pixel großen Bild
+mit in etwa 2000 robusten Merkmalen rechnen. Werden die gefundenen Merkmale in
+einer Datenbank gespeichert, können sie schließlich in nahezu Echtzeit auf die
+Schlüsselpunkte eines Suchbilds verglichen werden.
+
+Ein ähnlicher patentierter Algorithmus zur Erkennung von Bildmerkmalen ist der
+\glqq{}Speeded up robust features (SURF)\grqq{}. Ferner gibt es viele ähnliche
+frei verfügbare Algorithmen der Gruppe \glqq{}Bildmerkmalsfindung\grqq{}.
