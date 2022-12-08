@@ -6,36 +6,119 @@ Merkmale in Bildern. Diese Merkmale sind invariant gegenüber Bildskalierung und
 Betrachtungswinkels. Die Wahrscheinlichkeit einer Störung durch Verdeckung
 einzelner Elemente oder auftretenden Bildrauschens wird, durch räumliche
 Streuung und einem vielseitigen Frequenzbereich, erreicht. Im Folgenden wird die
-grobe Vorgehensweise zur Findung der lokalen Merkmale erläutert. 
+grobe Vorgehensweise zur Findung der lokalen Merkmale erläutert.
+\parencite{sift-distinctive-features}
 
 \begin{enumerate}
     \item \textbf{Scale-space extrema detection}\newline
     Zu Beginn wird aus einem Bild durch repetetives Unschärfen (mittels
     Gaußschen Unschärfefilter) und Halbieren der Größe eine Serie an Bildern
-    erzeugt. Auf die Bilder der Bilderserie folgt die Anwendung der Gaußschen
-    Differenzfunktion.
+    erzeugt (siehe Abbildung \ref{fig:sift1}). Auf die Bilder der Bilderserie
+    folgt die Anwendung der Gaußschen Differenzfunktion (siehe Abbildung
+    \ref{fig:sift2}). \parencite{sift-web-scale-space}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=15.3cm]{sift-1}
+        \caption{SIFT: Erzeugung der Bilderserie}
+        \label{fig:sift1}
+        \bildquelle{Eigene Darstellung; http://weitz.de/sift/}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=15.3cm]{sift-2}
+        \caption{SIFT: Anwendung Gaußscher Differenzfunktion}
+        \label{fig:sift2}
+        \bildquelle{Eigene Darstellung; http://weitz.de/sift/}
+    \end{figure}
+
     \item \textbf{Keypoint localization}\newline
     Aus den vorher differenzierten Grafiken werden jetzt mit dem
     Marr-Hildreth-Operator interessante Schlüsselpunkte bzw. Merkmale 
-    herausgefiltert. Eine dem Harris-Corner Detector ähnliche Prozedur wird
-    angewandt, um Punkte auf Linien zwischen Ecken und Punkte mit wenig
-    Kontrast (uninteressante Punkte) herauszusieben.
+    herausgefiltert (siehe Abbildung \ref{fig:sift3}).
+    \parencite{sift-web-keypoint} Eine dem Harris-Corner Detector ähnliche
+    Prozedur wird angewandt, um Punkte auf Linien zwischen Ecken und Punkte mit
+    wenig Kontrast (uninteressante Punkte) herauszusieben (siehe Abbildung 
+    \ref{fig:sift5}). \parencite{sift-web-low-contrast}
+
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}{.5\textwidth}
+          \centering
+          \includegraphics[width=.8\linewidth]{sift-3}
+          \caption{Extrahierte Schlüsselpunkte}
+          \label{fig:sift3}
+        \end{subfigure}%
+        \begin{subfigure}{.5\textwidth}
+          \centering
+          \includegraphics[width=.8\linewidth]{sift-5}
+          \caption{Filterung wichtiger Schlüsselpunkte}
+          \label{fig:sift5}
+        \end{subfigure}
+        \caption{SIFT: Schlüsselpunkt-Lokalisierung}
+        \label{fig:sift-keypoint}
+        \bildquelle{Eigene Darstellung; http://weitz.de/sift/}
+    \end{figure}
+
     \item \textbf{Orientation assignment}\newline
     Mithilfe eines Histogramms kann den Schlüsselpunkten nun eine Orientierung
-    zugewiesen werden. Dadurch werden die Punkte neben der Robustheit gegenüber
-    Skalierung und Translation auch gegen Rotation invariant.
+    zugewiesen werden (siehe Abbildung \ref{fig:sift-orientation}). Dadurch
+    werden die Punkte neben der Robustheit gegenüber Skalierung und Verschiebung
+    auch gegen Rotation invariant (siehe Abbildung \ref{fig:sift}).
+    \parencite{sift-web-orientation}
+
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}{.5\textwidth}
+          \centering
+          \includegraphics[width=.5\linewidth]{sift-6.png}
+          \caption{Orientierung}
+          \label{fig:sift6}
+        \end{subfigure}%
+        \begin{subfigure}{.5\textwidth}
+          \centering
+          \includegraphics[width=.5\linewidth]{sift-6b.png}
+          \caption{Zugehöriges Farbhistogramm (normalisiert)}
+          \label{fig:sift6b}
+        \end{subfigure}
+        \caption{SIFT: Zuordnung der Orientierung}
+        \label{fig:sift-orientation}
+        \bildquelle{Eigene Darstellung; http://weitz.de/sift/}
+    \end{figure}
+
     \item \textbf{Keypoint descriptor}\newline
     Zuletzt wird nach Anwendung einiger mathematischer Verfahren eine Art
-    eindeutiger Fingerabdruck des Merkmals berechnet. Schließlich wird dadurch
-    die Stabilität gegenüber begrenzter lokaler Formverzerrungen und
-    Beleuchtungsänderungen erreicht.
+    eindeutiger Fingerabdruck des Merkmals berechnet (siehe Abbildung
+    \ref{fig:sift7}). Schließlich wird dadurch die Stabilität gegenüber
+    begrenzter lokaler Formverzerrungen und Beleuchtungsänderungen erreicht
+    (siehe Abbildung \ref{fig:sift}).
+    \parencite{sift-web-descriptor}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=5cm]{sift-7}
+        \caption{SIFT: Pro Schlüsselpunkt erzeugte Deskriptoren (Fingerabdruck)}
+        \label{fig:sift7}
+        \bildquelle{Eigene Darstellung; http://weitz.de/sift/}
+    \end{figure}
 \end{enumerate}
 
 Nach Anwendung dieses Algorithmus muss man bei einem 500x500 Pixel großen Bild
 mit in etwa 2000 robusten Merkmalen rechnen. Werden die gefundenen Merkmale in
 einer Datenbank gespeichert, können sie schließlich in nahezu Echtzeit auf die
 Schlüsselpunkte eines Suchbilds verglichen werden.
+\parencite{sift-distinctive-features}
 
 Ein ähnlicher patentierter Algorithmus zur Erkennung von Bildmerkmalen ist der
-\glqq{}Speeded up robust features (SURF)\grqq{}. Ferner gibt es viele ähnliche
-frei verfügbare Algorithmen der Gruppe \glqq{}Bildmerkmalsfindung\grqq{}.
+\glqq{}Speeded up robust features (SURF)\grqq{} \parencite{sift-surf}. Ferner
+gibt es viele ähnliche frei verfügbare Algorithmen der Gruppe
+\glqq{}Bildmerkmalsfindung\grqq{}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{sift}
+    \caption{SIFT: Anwendung an verschiedenen Testbildern}
+    \label{fig:sift}
+    \bildquelle{Eigene Darstellung}
+\end{figure}

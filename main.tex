@@ -10,6 +10,7 @@
 % Bilder
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{subcaption} % multiple images next to each other
 \graphicspath{{./assets/img}}
 
 % Variablen
@@ -41,9 +42,8 @@ footskip=12mm}
 
 % Paket für Zeilenabstand
 \usepackage{setspace}
-\onehalfspacing
-% Kern:
-% \setstretch{1.15}
+% \onehalfspacing
+\setstretch{1.15}
 
 % Um Itemize zu konfigurieren (kein Abstand zur Zeile davor)
 \usepackage{enumitem}
@@ -120,35 +120,31 @@ footskip=12mm}
 % Einleitung
 \input{pages/einleitung}
 
-\section{Inhaltsbasierte Algorithmen zur Ähnlichkeitsbestimmung zweier Bilder}
+\section{Übersicht inhaltsbasierter Bildvergleichsalgorithmen}
 
 % Mittlere quadratische Abweichung
-\newpage
-\subsection{Mittlere quadratische Abweichung (Mean squared error)}
-
+\input{pages/mse}
 
 % Perceptual Hashing
 \newpage
 \input{pages/perceptual_hashing}
 
 % Histogram Intersection
-\newpage
 \input{pages/histogram_intersection}
 
 % Scale-Invariant Feature Transform (SIFT)
-\newpage
 \input{pages/sift}
 
 % Structural Similarity Index (SSIM)
-\newpage
 \input{pages/ssim}
 
+% Siamese Network
+\input{pages/siamese}
+
 % Fazit
-\newpage
 \input{pages/fazit}
 
 % Römische Nummerierung
-\newpage
 %\pagenumbering{Roman}
 %\setcounter{page}{5}
 
@@ -157,7 +153,7 @@ footskip=12mm}
 \input{pages/x_literaturverzeichnis}
 
 % Anhang
-\newpage
-\input{pages/x_anhang}
+% \newpage
+% \input{pages/x_anhang}
 
 \end{document}

@@ -1,35 +1,36 @@
 \subsection{Histogram Intersection}
 Ein robusteres, aber auch rechenaufwendigeres Verfahren ist der Histogram
 Intersection Algorithmus von Swain und Ballard. Histogramme sind stabil
-gegenüber Translation und Rotation um die Betrachtungsachse. Außerdem ändern
-sie sich bei Änderungen des Blickwinkels, des Maßstabs und bei Verdeckung von
-Elementen nur langsam. Gegen Belichtungsänderungen können stark reduzierte
-Farbhistogramme jedoch Probleme bereiten. 
-% Quelle: Swain and Ballard P.3
+gegenüber Verschiebungen und Rotationen um die Betrachtungsachse. Außerdem
+ändern sie sich bei Änderungen des Blickwinkels, des Maßstabs und bei Verdeckung
+von Elementen nur langsam. Gegen Belichtungsänderungen können stark reduzierte
+Farbhistogramme jedoch Probleme bereiten. \parencite{histogram-swain-ballard}
 
 Im Standardfall wird die Histogram Intersection auf Farbhistogramme angewandt. 
 Zuerst muss die Menge an zu diskretisierenden Farben im Histogramm festgelegt
-werden - zum Beispiel 100. Folglich gibt es 100 mögliche \glqq{}Farbeimer\grqq{}
+werden - zum Beispiel 200. Folglich gibt es 200 mögliche \glqq{}Farbeimer\grqq{}
 in die wir jeden Pixel der Bilder einsortieren. Mit den durch das Referenz- und
 das Suchbild berechneten Histogrammen, kann schließlich die Überschneidung
 festgestellt werden. Je stärker sich die Histogramme überschneiden, desto
-ähnlicher sind die Bilder. Zusätzlich wird wie beim Hashing ein gewisser
-Schwellenwert vorher definiert. Der Vorgang kann beispielsweise auch auf die
-einzelnen Farbkanäle aufgeteilt werden. Bei RGB würde das bedeuten, dass man
-jeweils den Rot-, Grün-, und Blau-Kanal einzeln betrachtet. 
+ähnlicher sind die Bilder. \parencite{histogram-image-similarity} Zusätzlich
+wird wie beim Hashing ein gewisser Schwellenwert vorher definiert. Der Vorgang
+kann beispielsweise auch auf die einzelnen Farbkanäle aufgeteilt werden. Bei RGB
+würde das bedeuten, dass man jeweils den Rot-, Grün-, und Blau-Kanal einzeln
+betrachtet. \parencite{histogram-swain-ballard}
 
 Weitere Untersuchungen haben ergeben, dass sowohl die Wahl des Farbraums als
 auch die Festlegung des Quantization Levels (Anzahl der Farbeimer) eine große
 Rolle bei der Erfolgsschance dieses Vorgehensmodells spielen. Hierbei sorgte
 wohl der CIELab-Farbraum im Allgemeinen für die besten Ergebnisse.
+\parencite{histogram-image-similarity}
 
 Eine zusätzliche Möglichkeit die Genauigkeit des Algorithmus zu verbessern ist
-das Hinzufügen eines sogenannten \glqq{}Texture Direction\grqq{}-Histogramms. In
-diesem Fall wird durch eine Eckenerkennung die Struktur und Richtungen des
-Bildes bestimmt. Diese werden wie bei den Farbhistogrammen auch in einem
-Histogramm mit vorher definierten Bins einsortiert. Abschließend kann, wie oben,
-beschrieben die Überschneidung und somit die Ähnlichkeit der Struktur zweier
-Bilder mithilfe des \glqq{}Histogram Intersection\grqq{}-Algorithmus von Swain
-und Ballard berechnet werden. Offensichtlich wird jedoch jeder weitere 
+das Hinzufügen und Vergleichen anderer Histogramme. Ein mögliches Beispiel wäre
+ein \glqq{}Texture Direction\grqq{} oder \glqq{}Texture Scale\grqq{} Histogramm.
+In diesen Fällen wird nicht versucht anhand der Farben eine Ähnlichkeit zu
+erkennen, sondern durch die Struktur des Bildes. Hierbei könnten beispielsweise
+aus dem Bild extrahierte Ecken oder Kanten in ein Histogramm sortiert werden und
+schließlich auf Überschneidungen analysiert werden.
+\parencite{histogram-stackoverflow} Offensichtlich wird jedoch jeder weitere
 zusätzlicher Berechnungsschritt die allgemeine Performance des Systems
 beeinträchtigen.
