@@ -1,18 +1,3 @@
-\phantomsection
-\appendix
-\section*{Anhang}
-\markboth{Anhang}{}
-\addcontentsline{toc}{section}{Anhang}
-
-\subsection*{Perceptual Hashing: Implementierung}
-\noindent
-Schrittweise Generierung eines Perceptual Hashes in Python unter der Verwendung
-der OpenCV-Bibliothek.
-
-\begin{lstlisting}[style=Python]
-# Perceptual Hash Implementation by Andreas Huber
-# Date: 2022-12-10
-
 import numpy as np
 import cv2
 
@@ -78,4 +63,21 @@ def generatePerceptualHash(path, export=False):
         cv2.destroyAllWindows()
 
     return ''.join(map(str, hash))
-\end{lstlisting}
+
+if __name__ == '__main__':
+    pathA = 'assets/image_a.jpg'
+    pathB = 'assets/image_b.jpg'
+    
+    # Generate hash for image A
+    hashA = generatePerceptualHash(pathA, export=True)
+    print(f'Hash A: {hashA}')
+
+    # Generate hash for image B
+    hashB = generatePerceptualHash(pathB)
+    print(f'Hash B: {hashB}')
+
+    # Hamming-Distance
+    similarity = sum(hashA != hashB for hashA, hashB in zip(hashA, hashB))
+
+    # Print result
+    print(f'Hamming-Distance: A<>B: {similarity}')

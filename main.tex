@@ -20,16 +20,22 @@
 \usepackage{longtable}
 \usepackage{diagbox}
 
-% Packet für Seitenrandabstände und Einstellung für Seitenränder
+% Paket für Seitenrandabstände und Einstellung für Seitenränder
 \usepackage{geometry}
+
 % Internet
 %\geometry{left=3.5cm, right=2.5cm, top=2.5cm, bottom=2cm}
-% Kern
-\geometry{a4paper, top=27mm, left=20mm, right=20mm, bottom=35mm, headsep=10mm,
+% Kern (Kern OG ist bottom auf 35)
+% \geometry{a4paper, top=27mm, left=20mm, right=20mm, bottom=25mm, headsep=10mm,
+% footskip=12mm}
+\geometry{a4paper, top=27mm, left=30mm, right=30mm, bottom=25mm, headsep=10mm,
 footskip=12mm}
 
 % bricht lange URLs "schön" um
 \usepackage[hyphens,obeyspaces,spaces]{url}
+
+% Fußnoten nach unten
+\usepackage[bottom]{footmisc}
 
 % Festlegung Art der Zitierung
 \usepackage{csquotes}
@@ -56,6 +62,9 @@ footskip=12mm}
 
 % Für Phantomsection
 \usepackage{hyperref}
+
+% Labelled Refs
+\usepackage{nameref}
 
 % Für Tabellen
 \usepackage{tabularx}
@@ -120,13 +129,13 @@ footskip=12mm}
 % Einleitung
 \input{pages/einleitung}
 
-\section{Übersicht inhaltsbasierter Bildvergleichsalgorithmen}
+\newpage
+\section{Übersicht visueller Vergleichsalgorithmen}
 
 % Mittlere quadratische Abweichung
 \input{pages/mse}
 
 % Perceptual Hashing
-\newpage
 \input{pages/perceptual_hashing}
 
 % Histogram Intersection
@@ -151,6 +160,10 @@ footskip=12mm}
 % Literaturliste soll im Inhaltsverzeichnis auftauchen
 \newpage
 \input{pages/x_literaturverzeichnis}
+
+% Anhang
+\newpage
+\input{pages/x_anhang}
 
 % Anhang
 % \newpage

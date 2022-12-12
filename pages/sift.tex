@@ -12,14 +12,15 @@ grobe Vorgehensweise zur Findung der lokalen Merkmale erläutert.
 \begin{enumerate}
     \item \textbf{Scale-space extrema detection}\newline
     Zu Beginn wird aus einem Bild durch repetetives Unschärfen (mittels
-    Gaußschen Unschärfefilter) und Halbieren der Größe eine Serie an Bildern
-    erzeugt (siehe Abbildung \ref{fig:sift1}). Auf die Bilder der Bilderserie
-    folgt die Anwendung der Gaußschen Differenzfunktion (siehe Abbildung
-    \ref{fig:sift2}). \parencite{sift-web-scale-space}
+    \textit{Gaußschen Weichzeichner}\footnote{https://datacarpentry.org/image-processing/06-blurring/ [09.12.2022]})
+    und Halbieren der Größe eine Serie an Bildern erzeugt (siehe Abbildung
+    \ref{fig:sift1}). Auf die Bilder der Bilderserie folgt die Anwendung der
+    \textit{Gaußschen Differenzfunktion}\footnote{https://www.sciencedirect.com/science/article/pii/B9780123694072500097 [09.12.2022]}
+    (siehe Abbildung \ref{fig:sift2}). \parencite{sift-web-scale-space}
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=15.3cm]{sift-1}
+        \includegraphics[width=13.3cm]{sift-1}
         \caption{SIFT: Erzeugung der Bilderserie}
         \label{fig:sift1}
         \bildquelle{Eigene Darstellung; http://weitz.de/sift/}
@@ -27,33 +28,32 @@ grobe Vorgehensweise zur Findung der lokalen Merkmale erläutert.
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=15.3cm]{sift-2}
+        \includegraphics[width=13.3cm]{sift-2}
         \caption{SIFT: Anwendung Gaußscher Differenzfunktion}
         \label{fig:sift2}
         \bildquelle{Eigene Darstellung; http://weitz.de/sift/}
     \end{figure}
 
     \item \textbf{Keypoint localization}\newline
-    Aus den vorher differenzierten Grafiken werden jetzt mit dem
-    Marr-Hildreth-Operator interessante Schlüsselpunkte bzw. Merkmale 
-    herausgefiltert (siehe Abbildung \ref{fig:sift3}).
-    \parencite{sift-web-keypoint} Eine dem Harris-Corner Detector ähnliche
-    Prozedur wird angewandt, um Punkte auf Linien zwischen Ecken und Punkte mit
-    wenig Kontrast (uninteressante Punkte) herauszusieben (siehe Abbildung 
-    \ref{fig:sift5}). \parencite{sift-web-low-contrast}
+    Aus den vorher differenzierten Grafiken werden mit dem
+    \textit{Marr-Hildreth-Operator}\footnote{https://theailearner.com/2019/05/25/laplacian-of-gaussian-log [09.12.2022]}
+    interessante Schlüsselpunkte bzw. Merkmale herausgefiltert (siehe Abbildung
+    \ref{fig:sift3}) \parencite{sift-web-keypoint}. Eine dem \textit{Harris-Corner-Detector}\footnote{https://docs.opencv.org/3.4/dc/d0d/tutorial\_py\_features\_harris.html [09.12.2022]}
+    ähnliche Prozedur wird angewandt, um unwichtige Punkte herauszusieben
+    (siehe Abbildung \ref{fig:sift5}) \parencite{sift-web-low-contrast}.
 
     \begin{figure}[H]
         \centering
         \begin{subfigure}{.5\textwidth}
           \centering
-          \includegraphics[width=.8\linewidth]{sift-3}
+          \includegraphics[width=.75\linewidth]{sift-3}
           \caption{Extrahierte Schlüsselpunkte}
           \label{fig:sift3}
         \end{subfigure}%
         \begin{subfigure}{.5\textwidth}
           \centering
-          \includegraphics[width=.8\linewidth]{sift-5}
-          \caption{Filterung wichtiger Schlüsselpunkte}
+          \includegraphics[width=.75\linewidth]{sift-5}
+          \caption{Filterung unwichtiger Schlüsselpunkte}
           \label{fig:sift5}
         \end{subfigure}
         \caption{SIFT: Schlüsselpunkt-Lokalisierung}
@@ -73,7 +73,7 @@ grobe Vorgehensweise zur Findung der lokalen Merkmale erläutert.
         \begin{subfigure}{.5\textwidth}
           \centering
           \includegraphics[width=.5\linewidth]{sift-6.png}
-          \caption{Orientierung}
+          \caption{Orientierung des Merkmals}
           \label{fig:sift6}
         \end{subfigure}%
         \begin{subfigure}{.5\textwidth}
@@ -88,11 +88,10 @@ grobe Vorgehensweise zur Findung der lokalen Merkmale erläutert.
     \end{figure}
 
     \item \textbf{Keypoint descriptor}\newline
-    Zuletzt wird nach Anwendung einiger mathematischer Verfahren eine Art
-    eindeutiger Fingerabdruck des Merkmals berechnet (siehe Abbildung
-    \ref{fig:sift7}). Schließlich wird dadurch die Stabilität gegenüber
-    begrenzter lokaler Formverzerrungen und Beleuchtungsänderungen erreicht
-    (siehe Abbildung \ref{fig:sift}).
+    Zuletzt wird nach Anwendung weiterer mathematischer Verfahren eine Art
+    Fingerabdruck des Merkmals berechnet (siehe Abbildung \ref{fig:sift7}).
+    Dadurch wird die Stabilität gegenüber begrenzter lokaler Formverzerrungen
+    und Beleuchtungsänderungen erreicht (siehe Abbildung \ref{fig:sift}).
     \parencite{sift-web-descriptor}
 
     \begin{figure}[H]
@@ -104,13 +103,13 @@ grobe Vorgehensweise zur Findung der lokalen Merkmale erläutert.
     \end{figure}
 \end{enumerate}
 
-Nach Anwendung dieses Algorithmus muss man bei einem 500x500 Pixel großen Bild
-mit in etwa 2000 robusten Merkmalen rechnen. Werden die gefundenen Merkmale in
-einer Datenbank gespeichert, können sie schließlich in nahezu Echtzeit auf die
+Nach Anwendung dieses Algorithmus sollte man bei einem 500x500 Pixel großen Bild
+mit rund 2000 robusten Merkmalen rechnen. Werden die gefundenen Merkmale in
+einer Datenbank gespeichert, können sie in nahezu Echtzeit auf die
 Schlüsselpunkte eines Suchbilds verglichen werden.
 \parencite{sift-distinctive-features}
 
-Ein ähnlicher patentierter Algorithmus zur Erkennung von Bildmerkmalen ist der
+Ein ähnlicher, jedoch bis 2033 patentierter\footnote{https://patents.google.com/patent/CN103640018A/en [09.12.2022]}, Algorithmus zur Erkennung von Bildmerkmalen ist der
 \glqq{}Speeded up robust features (SURF)\grqq{} \parencite{sift-surf}. Ferner
 gibt es viele ähnliche frei verfügbare Algorithmen der Gruppe
 \glqq{}Bildmerkmalsfindung\grqq{}.

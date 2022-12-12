@@ -1,8 +1,8 @@
 \subsection{Structural Similarity Index (SSIM)}
 Anders als die meisten anderen Vorgehensmodelle versucht die menschliche
-Wahrnehmung nicht Fehler zu Quantifizieren, sondern strukturelle Informationen
+Wahrnehmung nicht Fehler zu quantifizieren, sondern strukturelle Informationen
 aus einer Szene wiederzuerkennen. Um dieses Verhalten nachzuahmen, haben
-Forschende Mitglieder der IEEE den Structual Similarity Index entworfen.
+forschende Mitglieder der IEEE den Structual Similarity Index entworfen.
 \parencite{ssim-orig-paper}
 
 \noindent{Der Index extrahiert, vergleicht und kombiniert folgende drei
@@ -16,13 +16,22 @@ Parameter:}
 Im ersten Schritt wird die Leuchtdichte durch Mittelwertbildung über alle
 Pixelwerte gemessen. Anschließend wird der Kontrast durch Berechnung der
 Standardabweichung aller Werte ermittelt. Vereinfacht dargestellt wird die
-Struktur durch die Teilung des Eingangssignals durch seine Standardabweichung
+Struktur verglichen, indem das Eingangssignal durch seine Standardabweichung
 geteilt, sodass eine genormte Standardabweichung entsteht.
 \parencite{ssim-summary}
 
 Sobald die drei Werte berechnet wurden, werden diese anhand, im Original-Paper,
 veröffentlichten mathematischen Funktionen verglichen und schließlich
-kombiniert. \parencite{ssim-summary}
+kombiniert (siehe Abbildung \ref{fig:ssim-block-diagram}).
+\parencite{ssim-summary}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{ssim-block-diagram}
+    \caption{SSIM: Ablaufsdiagramm}
+    \label{fig:ssim-block-diagram}
+    \bildquelle{\fullcite[]{ssim-orig-paper}}
+\end{figure}
 
 Obendrein sei es nützlich den Index nicht global auf das Bild anzuwenden. Das
 Paper gibt an den Algorithmus vorzugsweise auf verschiedene lokale Stellen
@@ -44,7 +53,6 @@ Skalierungen, Verschiebungen und Rotierungen (siehe Abbildung \ref{fig:ssim}).
     \label{fig:ssim}
     \bildquelle{Eigene Darstellung}
 \end{figure}
-
 
 Aufbauend auf den SSIM-Algorithmus gibt es weitere optimierende Forschungen, wie
 zum Beispiel der Complex Wavelet Structural Similarity Index. Der CW-SSIM

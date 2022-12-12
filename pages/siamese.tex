@@ -2,16 +2,19 @@
 Zu guter Letzt liefert der Image Matching Algorithmus auf Basis des Siamesischen
 Neuronalen Netzwerks die besten Ergebnisse. Dabei besteht das neuronale Netzwerk
 aus zwei identischen Subnetzwerken. Meist kommt hierfür das sehr verbreitete
-Convolutional Neural Network als Subnetzwerk zum Einsatz, welches die
-Merkmalsvektoren aus den Bildern extrahiert. \parencite{siamese-orig-paper}
+\textit{Convolutional Neural Network}\footnote{https://www.ibm.com/cloud/learn/convolutional-neural-networks [09.12.2022]}
+als Subnetzwerk zum Einsatz, welches die Merkmalsvektoren aus den Bildern
+extrahiert. \parencite{siamese-orig-paper}
 
-Die beiden entstehenden Vektoren dienen als Eingabe für die Contrastive Loss
-Function. Dieser Vorgang minimiert die euklidische Distanz der Vektoren im Falle
-eines Matches und maximiert diese bei inkomparabelen Bilderpaaren.
+Die beiden entstehenden Vektoren dienen als Eingabe für die
+\textit{Contrastive Loss Function}\footnote{https://towardsdatascience.com/contrastive-loss-explaned-159f2d4a87ec [09.12.2022]}.
+Im Falle eines Matches minimiert dieser Vorgang die euklidische Distanz,
+andernfalls maximiert er die Distanz bei inkomparabelen Bilderpaaren.
 \parencite{siamese-orig-paper}
 
 Wie bei vielen Machine Learning Ansätzen ist bei der Verwendung einer der
 größten Nachteile das Training. Damit das Siamese Network optimal funktioniert,
 muss das Netzwerk mit einem sehr großen Datensatz an klassifizierten
-Bilderpaaren trainiert werden.
-\parencite{mse-naive-approach}
+Bilderpaaren trainiert werden \parencite{mse-naive-approach}. Das ist außerdem
+der Grund, wieso im Rahmen dieser Abhandlung keine Anwendung an Testbildern 
+durchgeführt werden konnte.
