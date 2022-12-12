@@ -5,7 +5,7 @@ Hashing. Dabei gibt es viele verschiedene Ansätze und Vorgehensmodelle. Die
 gängigste Methode ist die Anwendung des pHashes, auch genannt Perceptual Hashing.
 \parencite{hashing-apiumhub}
 
-Beim Perceptual Hashing werden sowohl für das Referenz- als auch für Suchbild
+Beim Perceptual Hashing werden sowohl für das Referenz- als auch für Testbild
 ein Hash berechnet. Die aus deren Differenz resultierende
 \textit{Hamming-Distanz}\footnote{https://www.spektrum.de/lexikon/mathematik/hamming-abstand/3770 [09.12.2022]}
 ergibt die Übereinstimmung der Bilder. Je geringer die Distanz, desto ähnlicher.
@@ -13,7 +13,7 @@ Das Verfahren ist nicht normiert und noch ein offenes Forschungsthema.
 \parencite{hashing-phash}
 
 Im Folgenden wird ein beispielhaftes pHash-Verfahren erläutert. Zuerst wird
-sowohl das Referenz- als auch das Suchbild in eine Graustufen-Grafik
+sowohl das Referenz- als auch das Testbild in eine Graustufen-Grafik
 umgewandelt. Schließlich wird die Grafik auf 32x32 Pixel skaliert. Auf das
 entstandene Grauwertbild folgen zwei \textit{Diskrete Kosinus Transformationen}\footnote{https://de-academic.com/dic.nsf/dewiki/339357 [09.12.2022]}
 (1. Pro Zeile, 2. Pro Spalte). Die hochfrequenten Abschnitte befinden sich nun links
