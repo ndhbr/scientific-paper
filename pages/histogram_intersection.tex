@@ -7,17 +7,17 @@ sich bei Änderungen des Blickwinkels, des Maßstabs und bei Verdeckung von
 Elementen nur langsam. Gegen Belichtungsänderungen können stark reduzierte
 Farbhistogramme jedoch Probleme bereiten. \parencite{histogram-swain-ballard}
 
-Im Standardfall wird die Histogram Intersection auf Farbhistogramme angewandt. 
-Zuerst muss die Menge an zu diskretisierenden Farben im Histogramm festgelegt
-werden - zum Beispiel 200. Folglich gibt es 200 mögliche \glqq{}Farbeimer\grqq{}
-(Bins) in die jeder Pixel der Bilder einsortiert wird. Nach dem
-Übereinanderlegen der durch das Referenz- und das Testbild berechneten
-Histogrammen, wird schließlich deren Überschneidung berechnet. Je stärker sich
+Im Standardfall wird das Histogram Intersection Verfahren auf Farbhistogramme
+angewandt. Zuerst muss die Menge an zu diskretisierenden Farben im Histogramm
+festgelegt werden - zum Beispiel 200. Das heißt, es gibt 200 mögliche
+\glqq{}Farbeimer\grqq{} (Bins) in die jeder Pixel der Bilder einsortiert wird.
+Nach dem Übereinanderlegen der durch das Referenz- und das Testbild berechneten
+Histogramme wird schließlich deren Überschneidung berechnet. Je stärker sich
 die Histogramme überschneiden, desto ähnlicher sind die Bilder
 \parencite{histogram-image-similarity}. Zusätzlich wird wie beim Hashing ein
-gewisser Schwellenwert vorher definiert. Der Vorgang kann beispielsweise auch
-auf die einzelnen Farbkanäle aufgeteilt werden. Bei RGB würde das bedeuten, dass
-man jeweils den Rot-, Grün-, und Blau-Kanal einzeln betrachtet.
+gewisser Schwellenwert vordefiniert. Der Vorgang kann beispielsweise auch auf
+die einzelnen Farbkanäle aufgeteilt werden. Bei RGB würde das bedeuten, dass
+jeweils der Rot-, Grün-, und der Blau-Kanal einzeln betrachtet wird.
 \parencite{histogram-swain-ballard}
 
 Eine weitere Untersuchung hat ergeben, dass sowohl die Wahl des Farbraums als
@@ -33,8 +33,8 @@ mögliches Beispiel wäre ein \glqq{}Texture Direction\grqq{} oder
 anhand der Farben eine Ähnlichkeit zu erkennen, sondern durch die Struktur des
 Bildes. Hier werden beispielsweise aus dem Bild extrahierte Ecken oder Kanten in
 ein Histogramm sortiert und schließlich auf Überschneidungen analysiert
-\parencite{histogram-stackoverflow}. Natürlich wird jedoch jeder weitere
-zusätzlicher Berechnungsschritt die allgemeine Performance des Systems
+\parencite{histogram-stackoverflow}. Jeder weitere zusätzliche
+Berechnungsschritt wird dabei jedoch die Performance des Systems
 beeinträchtigen.
 
 \begin{figure}[H]

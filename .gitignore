@@ -290,3 +290,6 @@ TSWLatexianTemp*
 
 # PhotoLine
 *.plb
+
+# Results
+*.pdf

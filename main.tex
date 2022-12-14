@@ -28,7 +28,7 @@
 % Kern (Kern OG ist bottom auf 35)
 % \geometry{a4paper, top=27mm, left=20mm, right=20mm, bottom=25mm, headsep=10mm,
 % footskip=12mm}
-\geometry{a4paper, top=27mm, left=30mm, right=30mm, bottom=25mm, headsep=10mm,
+\geometry{a4paper, top=27mm, left=30mm, right=30mm, bottom=35mm, headsep=10mm,
 footskip=12mm}
 
 % bricht lange URLs "schön" um
@@ -48,7 +48,6 @@ footskip=12mm}
 
 % Paket für Zeilenabstand
 \usepackage{setspace}
-% \onehalfspacing
 \setstretch{1.15}
 
 % Um Itemize zu konfigurieren (kein Abstand zur Zeile davor)
@@ -115,7 +114,11 @@ footskip=12mm}
 % Römische Nummerierung
 \pagenumbering{Roman}
 
+% Abstract
+\input{pages/abstract}
+
 % Inhaltsverzeichnis
+\newpage
 \tableofcontents
 
 % Abbildungsverzeichnis

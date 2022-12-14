@@ -17,12 +17,12 @@ Im ersten Schritt wird die Leuchtdichte durch Mittelwertbildung über alle
 Pixelwerte gemessen. Anschließend wird der Kontrast durch Berechnung der
 Standardabweichung aller Werte ermittelt. Vereinfacht dargestellt wird die
 Struktur verglichen, indem das Eingangssignal durch seine Standardabweichung
-geteilt, sodass eine genormte Standardabweichung entsteht.
+geteilt wird, sodass eine genormte Standardabweichung entsteht.
 \parencite{ssim-summary}
 
-Sobald die drei Werte berechnet wurden, werden diese anhand, im Original-Paper,
-veröffentlichten mathematischen Funktionen verglichen und schließlich
-kombiniert (siehe Abbildung \ref{fig:ssim-block-diagram}).
+Sobald die drei Werte berechnet wurden, werden diese anhand, im Paper des
+Verfahrens, veröffentlichten mathematischen Funktionen verglichen und
+schließlich kombiniert (siehe Abbildung \ref{fig:ssim-block-diagram}).
 \parencite{ssim-summary}
 
 \begin{figure}[H]
@@ -38,8 +38,8 @@ Paper gibt an den Algorithmus vorzugsweise auf verschiedene lokale Stellen
 einzusetzen. Erstens seien für die Analyse interessante Objekte oft instationär
 und zweitens können Bildverzerrungen auch räumlich variabel sein. Um die
 Referenz zur Nachahmung der menschlichen Wahrnehmung zu ziehen, ist ebenfalls
-festzustellen, dass Menschen ebenfalls nur lokale Bereiche einer Grafik in hoher
-Auflösung wahrnehmen können. \parencite{ssim-summary}
+festzustellen, dass Menschen nur lokale Bereiche einer Grafik in hoher Auflösung 
+wahrnehmen können. \parencite{ssim-summary}
 
 Auch wenn der SSIM durch seine Einfachheit, gegenüber anderen Verfahren, eine
 überragende Performance aufweist, ist der Algorithmus sehr anfällig für
@@ -54,7 +54,7 @@ Skalierungen, Verschiebungen und Rotierungen (siehe Abbildung \ref{fig:ssim}).
     \bildquelle{Eigene Darstellung}
 \end{figure}
 
-Aufbauend auf den SSIM-Algorithmus gibt es weitere optimierende Forschungen, wie
+Aufbauend auf dem SSIM-Algorithmus gibt es weitere optimierende Forschungen, wie
 zum Beispiel der Complex Wavelet Structural Similarity Index. Der CW-SSIM
 adressiert die vorher genannten Probleme und erzeugt durch Verwendung von
 Wavelet-Transformationen eine Robustheit gegenüber kleinen Verschiebungen und
